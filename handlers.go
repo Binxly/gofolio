@@ -1,0 +1,38 @@
+package main
+
+import (
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
+
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	recentPosts := blogService.GetRecentPosts(3) // TODO: move this value to a config file or something idk
+	component := BaseLayout("Home", HomeContentWithPosts(recentPosts))
+	component.Render(r.Context(), w)
+}
+
+func blogHandler(w http.ResponseWriter, r *http.Request) {
+	posts := blogService.GetAllPosts()
+	component := DynamicBlogPage(posts)
+	component.Render(r.Context(), w)
+}
+
+func blogPostHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	slug := vars["slug"]
+
+	post, err := blogService.GetPostBySlug(slug)
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
+
+	component := BlogPostPage(*post)
+	component.Render(r.Context(), w)
+}
+
+func aboutHandler(w http.ResponseWriter, r *http.Request) {
+	component := AboutPage()
+	component.Render(r.Context(), w)
+}

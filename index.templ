@@ -1,0 +1,446 @@
+package main
+
+import "github.com/binxly/gofolio/blog"
+
+templ BaseLayout(title string, content templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en" class="scroll-smooth">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ title } | Binx.page - Blogfolio</title>
+			<meta name="description" content="Writing, learning, and tinkering around."/>
+			<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+			<link rel="apple-touch-icon" href="/static/favicon.ico"/>
+			<link rel="stylesheet" href="/static/assets/css/output.css"/>
+			<script src="https://cdn.tailwindcss.com"></script>
+			<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+			<script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						fontFamily: {
+							'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
+							'sans': ['Inter', 'system-ui', 'sans-serif'],
+						},
+						colors: {
+							background: 'hsl(var(--background))',
+							foreground: 'hsl(var(--foreground))',
+							muted: {
+								DEFAULT: 'hsl(var(--muted))',
+								foreground: 'hsl(var(--muted-foreground))',
+							},
+							popover: {
+								DEFAULT: 'hsl(var(--popover))',
+								foreground: 'hsl(var(--popover-foreground))',
+							},
+							card: {
+								DEFAULT: 'hsl(var(--card))',
+								foreground: 'hsl(var(--card-foreground))',
+							},
+							border: 'hsl(var(--border))',
+							input: 'hsl(var(--input))',
+							primary: {
+								DEFAULT: 'hsl(var(--primary))',
+								foreground: 'hsl(var(--primary-foreground))',
+							},
+							secondary: {
+								DEFAULT: 'hsl(var(--secondary))',
+								foreground: 'hsl(var(--secondary-foreground))',
+							},
+							accent: {
+								DEFAULT: 'hsl(var(--accent))',
+								foreground: 'hsl(var(--accent-foreground))',
+							},
+							destructive: {
+								DEFAULT: 'hsl(var(--destructive))',
+								foreground: 'hsl(var(--destructive-foreground))',
+							},
+							ring: 'hsl(var(--ring))',
+							'stone': {
+								50: '#fafaf9',
+								100: '#f5f5f4',
+								200: '#e7e5e4',
+								300: '#d6d3d1',
+								400: '#a8a29e',
+								500: '#78716c',
+								600: '#57534e',
+								700: '#44403c',
+								800: '#292524',
+								900: '#1c1917',
+								950: '#0c0a09',
+							}
+						},
+						borderRadius: {
+							lg: 'var(--radius)',
+							md: 'calc(var(--radius) - 2px)',
+							sm: 'calc(var(--radius) - 4px)',
+						},
+					}
+				}
+			}
+		</script>
+			<style>
+			@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+			body { font-family: 'Inter', sans-serif; }
+			
+			html { color-scheme: dark; }
+			
+			::-webkit-scrollbar {
+				width: 6px;
+			}
+			::-webkit-scrollbar-track {
+				background: #1c1917;
+			}
+			::-webkit-scrollbar-thumb {
+				background: #44403c;
+				border-radius: 3px;
+			}
+			::-webkit-scrollbar-thumb:hover {
+				background: #57534e;
+			}
+		</style>
+			<script>
+			document.documentElement.classList.add('dark');
+		</script>
+		</head>
+		<body class="bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors duration-200">
+			@Navigation()
+			<main>
+				@content
+			</main>
+			@Footer()
+		</body>
+	</html>
+}
+
+templ Navigation() {
+	<nav class="border-b border-stone-200 dark:border-stone-800">
+		<div class="max-w-2xl mx-auto px-6 py-4">
+			<div class="flex justify-between items-center">
+				<a href="/" class="text-lg font-medium text-stone-900 dark:text-stone-100 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">
+					binx.page
+				</a>
+				<div class="flex space-x-6 text-sm">
+					<a href="/" class="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">home</a>
+					<a href="/blog" class="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">blog</a>
+					<a href="/about" class="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">about</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+}
+
+templ HomeContentWithPosts(recentPosts []blog.Post) {
+	<div class="max-w-2xl mx-auto px-6 py-16">
+		<section class="mb-20">
+			<h1 class="text-3xl font-medium text-stone-900 dark:text-stone-100 mb-4">
+				Hi, I'm Zac
+			</h1>
+			<p class="text-lg text-stone-600 dark:text-stone-400 mb-6 leading-relaxed">
+				I am an indie full-stack developer who is passionate about technology and open-source software.
+			</p>
+			<p class="text-stone-600 dark:text-stone-400 leading-relaxed">
+				While my focus is currently software development, I am interested in learning more about novel deep learning architectures and applications, writing, and linux.
+			</p>
+		</section>
+		<section class="mb-20">
+			<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-8">Currently working on</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div class="group">
+					<h3 class="font-medium text-stone-900 dark:text-stone-100 mb-1"><a href="https://github.com/Binxly/gofolio" class="hover:text-stone-600 dark:hover:text-stone-300 transition-colors">This Website</a></h3>
+					<p class="text-sm text-stone-600 dark:text-stone-400 mb-2">In the process of changing my stack from Next.js to Go with Templ, deployed on AWS.</p>
+					<div class="text-sm text-stone-500 dark:text-stone-500">
+						Go • Templ
+					</div>
+				</div>
+				<div class="group">
+					<h3 class="font-medium text-stone-900 dark:text-stone-100 mb-1"><a href="https://github.com/Binxly/monkey-interpreter" class="hover:text-stone-600 dark:hover:text-stone-300 transition-colors">Monkey Interpreter</a></h3>
+					<p class="text-sm text-stone-600 dark:text-stone-400 mb-2">Building an interpreter in Go. Learning about ASTs and programming language design.</p>
+					<div class="text-sm text-stone-500 dark:text-stone-500">
+						Go • Interpreters
+					</div>
+				</div>
+				<div class="group">
+					<h3 class="font-medium text-stone-900 dark:text-stone-100 mb-1"><a href="https://github.com/Binxly/atomizer" class="hover:text-stone-600 dark:hover:text-stone-300 transition-colors">Obsidian Plugin: Atomizer</a></h3>
+					<p class="text-sm text-stone-600 dark:text-stone-400 mb-2">Knowledge management utility. Turn one note into many atomic ideas.</p>
+					<div class="text-sm text-stone-500 dark:text-stone-500">
+						TypeScript • Plugin
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-8">Recent posts</h2>
+			<div class="space-y-8">
+				for _, post := range recentPosts {
+					<article>
+						<div class="flex items-center gap-3 mb-2 text-xs text-stone-500 dark:text-stone-500">
+							<time>{ post.Date.Format("January 2, 2006") }</time>
+							<span class="text-stone-400 dark:text-stone-600">•</span>
+							<span>{ post.Category }</span>
+						</div>
+						<h3 class="font-medium text-stone-900 dark:text-stone-100 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">
+							<a href={ templ.URL("/blog/" + post.Slug) }>{ post.Title }</a>
+						</h3>
+					</article>
+				}
+			</div>
+		</section>
+	</div>
+}
+
+templ AboutPage() {
+	@BaseLayout("About", AboutContent())
+}
+
+templ AboutContent() {
+	<div class="max-w-2xl mx-auto px-6 py-16">
+		<h1 class="text-3xl font-medium text-stone-900 dark:text-stone-100 mb-8">About Me</h1>
+		<div class="space-y-12 text-stone-600 dark:text-stone-400 leading-relaxed">
+			<section>
+				<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-6">Work Experience</h2>
+				<div class="space-y-8">
+					<div x-data="{ open: false }">
+						<button @click="open = !open" class="w-full flex justify-between items-center text-left">
+							<div>
+								<h3 class="font-medium text-stone-900 dark:text-stone-100">GenAI Cloud Engineer</h3>
+								<p class="text-sm text-stone-500 dark:text-stone-500">LCG Inc • Oct 2024 - Mar 2025</p>
+							</div>
+							<svg class="w-5 h-5 text-stone-500 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+							</svg>
+						</button>
+						<div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-2" class="mt-4">
+							<ul class="list-disc list-inside space-y-1 text-sm">
+								<li>Official title: Full Stack Developer</li>
+								<li>Built serverless Python applications using LangChain and the Azure SDK</li>
+								<li>Created vector databases integrated into Retrieval-Augmented Generation pipelines</li>
+								<li>Deployed and maintained GenAI models in Azure and AWS environments</li>
+								<li>Designed and implemented tools allowing users to interface with LLMs for automating tasks</li>
+							</ul>
+						</div>
+					</div>
+					<div x-data="{ open: false }">
+						<button @click="open = !open" class="w-full flex justify-between items-center text-left">
+							<div>
+								<h3 class="font-medium text-stone-900 dark:text-stone-100">Technology Specialist II</h3>
+								<p class="text-sm text-stone-500 dark:text-stone-500">LCG Inc • Nov 2023 - Oct 2024</p>
+							</div>
+							<svg class="w-5 h-5 text-stone-500 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+							</svg>
+						</button>
+						<div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-2" class="mt-4">
+							<ul class="list-disc list-inside space-y-1 text-sm">
+								<li>Resolved Level 1 & 2 tickets in an enterprise hardware and software environment</li>
+								<li>Managed Active Directory users, devices, and group policies</li>
+								<li>Reviewed monitoring reports and maintained device and software compliance to security standards</li>
+								<li>Wrote and contributed to monthly Standard Operating Procedures (SOPs)</li>
+							</ul>
+						</div>
+					</div>
+					<div x-data="{ open: false }">
+						<button @click="open = !open" class="w-full flex justify-between items-center text-left">
+							<div>
+								<h3 class="font-medium text-stone-900 dark:text-stone-100">GenAI Systems Engineer</h3>
+								<p class="text-sm text-stone-500 dark:text-stone-500">BINXNET LLC • Jun 2021 - Oct 2024</p>
+							</div>
+							<svg class="w-5 h-5 text-stone-500 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+							</svg>
+						</button>
+						<div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-2" class="mt-4">
+							<ul class="list-disc list-inside space-y-1 text-sm">
+								<li>Designed and created offline RAG applications for personal knowledge management and AI agent environments</li>
+								<li>Developed generative image model workflows using Python, PyTorch, and Diffusers, hosted both locally and on the cloud</li>
+								<li>Provided generative media consulting and deep learning model fine-tuning services</li>
+							</ul>
+						</div>
+					</div>
+					<div x-data="{ open: false }">
+						<button @click="open = !open" class="w-full flex justify-between items-center text-left">
+							<div>
+								<h3 class="font-medium text-stone-900 dark:text-stone-100">IT Specialist</h3>
+								<p class="text-sm text-stone-500 dark:text-stone-500">Spartanburg School District 5 • Jan 2016 - Jan 2017</p>
+							</div>
+							<svg class="w-5 h-5 text-stone-500 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+							</svg>
+						</button>
+						<div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-2" class="mt-4">
+							<ul class="list-disc list-inside space-y-1 text-sm">
+								<li>Provided technical support in accelerated student program</li>
+								<li>Managed user accounts and network device troubleshooting</li>
+								<li>Operated helpdesk ticketing systems</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-6">Skills</h2>
+				<div class="flex flex-wrap gap-2">
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">AWS</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Azure</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Python</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">PyTorch</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Go</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">TypeScript</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Git</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">RAG Applications</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">LLMs</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Active Directory</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Windows</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Linux</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Network Security</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">DevOps</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Docker</span>
+				</div>
+			</section>
+			<section>
+				<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-6">Certifications</h2>
+				<div class="space-y-4">
+					<div>
+						<h3 class="font-medium text-stone-900 dark:text-stone-100">AI Agent Fundamentals</h3>
+						<p class="text-sm text-stone-500 dark:text-stone-500">Hugging Face • 2025</p>
+					</div>
+					<div>
+						<h3 class="font-medium text-stone-900 dark:text-stone-100">Neural Networks and Deep Learning</h3>
+						<p class="text-sm text-stone-500 dark:text-stone-500">DeepLearning.AI • 2024</p>
+					</div>
+					<div>
+						<h3 class="font-medium text-stone-900 dark:text-stone-100">CCNA ENSA</h3>
+						<p class="text-sm text-stone-500 dark:text-stone-500">Cisco Networking Academy • 2022</p>
+					</div>
+					<div>
+						<h3 class="font-medium text-stone-900 dark:text-stone-100">Cisco CyberOps Associate</h3>
+						<p class="text-sm text-stone-500 dark:text-stone-500">Cisco Networking Academy • 2022</p>
+					</div>
+				</div>
+			</section>
+			<section>
+				<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-6">Education</h2>
+				<div>
+					<h3 class="font-medium text-stone-900 dark:text-stone-100">Computer Networking</h3>
+					<p class="text-sm text-stone-500 dark:text-stone-500 mb-2">A.A.S. with Cybersecurity electives</p>
+					<p class="text-sm text-stone-500 dark:text-stone-500">Foundations in System Administration, Advanced Cisco Router Configuration, Network and Digital Forensics</p>
+				</div>
+			</section>
+			<section>
+				<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-6">Interests</h2>
+				<div class="flex flex-wrap gap-2">
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Writing</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Digital Art</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Deep Learning</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Game Development</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Personal Knowledge Management</span>
+					<span class="px-3 py-1 bg-stone-100 dark:bg-stone-800 rounded-full text-sm">Star Trek</span>
+				</div>
+			</section>
+			<section>
+				<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-6">Get in touch</h2>
+				<p class="mb-6">
+					Feel free to reach out if you'd like to collaborate on a project or just want to chat about interesting tech!
+				</p>
+				<div class="flex flex-wrap gap-4 text-sm">
+					<a href="mailto:contact@binx.page" class="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+						Email
+					</a>
+					<a href="https://github.com/Binxly" class="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+						GitHub
+					</a>
+					<a href="https://x.com/binxnet" class="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+						X
+					</a>
+					<a href="https://linkedin.com/in/zac-bagley" class="text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+						LinkedIn
+					</a>
+				</div>
+			</section>
+		</div>
+	</div>
+}
+
+templ Footer() {
+	<footer class="border-t border-stone-200 dark:border-stone-800 mt-20">
+		<div class="max-w-2xl mx-auto px-6 py-8">
+			<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+				<div class="text-sm text-stone-500 dark:text-stone-500">
+					binx.page © 2025
+				</div>
+				<div class="flex gap-4 text-sm">
+					<a href="/rss" class="text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">rss</a>
+					<a href="https://github.com/Binxly" class="text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">github</a>
+					<a href="https://bsky.app/profile/binx.page" class="text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">bluesky</a>
+					<a href="https://instagram.com/binx.ly" class="text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">instagram</a>
+					<a href="https://x.com/binxnet" class="text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">x</a>
+					<a href="https://linkedin.com/in/zac-bagley" class="text-stone-500 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">linkedin</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+}
+
+templ DynamicBlogPage(posts []blog.Post) {
+	@BaseLayout("Blog", DynamicBlogContent(posts))
+}
+
+templ DynamicBlogContent(posts []blog.Post) {
+	<div class="max-w-2xl mx-auto px-6 py-16">
+		<h1 class="text-3xl font-medium text-stone-900 dark:text-stone-100 mb-4">Blog</h1>
+		<p class="text-lg text-stone-600 dark:text-stone-400 mb-16 leading-relaxed">
+			Thoughts on technology, learning, and building things.
+		</p>
+		<div class="space-y-12">
+			for _, post := range posts {
+				<article>
+					<div class="flex items-center gap-3 mb-3 text-xs text-stone-500 dark:text-stone-500">
+						<time>{ post.Date.Format("January 2, 2006") }</time>
+						<span class="text-stone-400 dark:text-stone-600">•</span>
+						<span>{ post.Category }</span>
+					</div>
+					<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-3">
+						<a href={ templ.URL("/blog/" + post.Slug) } class="hover:text-stone-600 dark:hover:text-stone-300 transition-colors">
+							{ post.Title }
+						</a>
+					</h2>
+					<p class="text-stone-600 dark:text-stone-400 mb-3 leading-relaxed">
+						{ post.Excerpt }
+					</p>
+					<a href={ templ.URL("/blog/" + post.Slug) } class="text-sm text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">Read more →</a>
+				</article>
+			}
+		</div>
+	</div>
+}
+
+templ BlogPostPage(post blog.Post) {
+	@BaseLayout(post.Title, BlogPostContent(post))
+}
+
+templ BlogPostContent(post blog.Post) {
+	<div class="max-w-2xl mx-auto px-6 py-16">
+		<article>
+			<header class="mb-8">
+				<div class="flex items-center gap-3 mb-4 text-sm text-stone-500 dark:text-stone-500">
+					<time>{ post.Date.Format("January 2, 2006") }</time>
+					<span class="text-stone-400 dark:text-stone-600">•</span>
+					<span>{ post.Category }</span>
+				</div>
+				<h1 class="text-3xl font-medium text-stone-900 dark:text-stone-100 mb-4">
+					{ post.Title }
+				</h1>
+			</header>
+			<div class="prose prose-stone dark:prose-invert max-w-none">
+				@templ.Raw(string(post.Content))
+			</div>
+		</article>
+		<div class="mt-16 pt-8 border-t border-stone-200 dark:border-stone-800">
+			<a href="/blog" class="text-sm text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+				← Back to blog
+			</a>
+		</div>
+	</div>
+}
