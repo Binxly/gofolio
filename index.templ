@@ -384,12 +384,12 @@ templ Footer() {
 }
 
 templ DynamicBlogPage(posts []blog.Post) {
-	@BaseLayout("Blog", DynamicBlogContent(posts))
+	@BaseLayout("Blog | Binx Bytes", DynamicBlogContent(posts))
 }
 
 templ DynamicBlogContent(posts []blog.Post) {
 	<div class="max-w-2xl mx-auto px-6 py-16">
-		<h1 class="text-3xl font-medium text-stone-900 dark:text-stone-100 mb-4">Blog</h1>
+		<h1 class="text-3xl font-medium text-stone-900 dark:text-stone-100 mb-4">Blog - Binx Bytes</h1>
 		<p class="text-lg text-stone-600 dark:text-stone-400 mb-16 leading-relaxed">
 			Thoughts on technology, learning, and building things.
 		</p>
