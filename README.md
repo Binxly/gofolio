@@ -46,7 +46,7 @@ The blog system uses Goldmark for markdown parsing, Goldmark-meta for frontmatte
 
 ## TODO
 
-### Content & Blog System
+### Blog Feed
 
 - [X] RSS feed!
 
@@ -56,8 +56,13 @@ The blog system uses Goldmark for markdown parsing, Goldmark-meta for frontmatte
 
 ### QoL
 
-- [ ] Fix GH Action to automate update of AWS Lambda function.
-
 - [ ] Self-host Tailwind
 
 - [ ] Split components
+
+- [ ] Lazy Loading for Posts!! 
+    - Make RecentPosts scan for metadata instead of running LoadPosts()
+
+- [ ] S3
+
+- [ ] Fix GH Action to automate update of AWS Lambda function.

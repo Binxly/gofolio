@@ -16,6 +16,10 @@ import (
 func main() {
 	blogService = blog.NewBlogService("content")
 	if err := blogService.LoadPosts(); err != nil {
+		// TODO: replace with a method for loading metadata of 'first' 3 posts only.
+		// very ugly and hacked together because I got lazy when I opted for
+		// a goldmark extension to help with .md frontmatter parsing.
+		// ref lambda.go
 		log.Printf("Error loading blog posts: %v", err)
 	}
 
