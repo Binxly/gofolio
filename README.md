@@ -48,11 +48,11 @@ The blog system uses Goldmark for markdown parsing, Goldmark-meta for frontmatte
 
 ### Content & Blog System
 
-- [ ] RSS feed!
+- [X] RSS feed!
 
 ### Styles
 
-- [ ] Scrape out Tailwind CDN in templ base component, build with input.css?
+- [ ] Scrape out Tailwind CDN in templ base component
 
 ### QoL
 
@@ -61,4 +61,3 @@ The blog system uses Goldmark for markdown parsing, Goldmark-meta for frontmatte
 - [ ] Self-host Tailwind
 
 - [ ] Split components
-
