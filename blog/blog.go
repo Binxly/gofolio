@@ -40,7 +40,7 @@ func NewBlogService(contentDir string) *BlogService {
 }
 
 func (bs *BlogService) LoadPosts() error {
-	blogDir := filepath.Join(bs.contentDir, "blog")
+	blogDir := filepath.Join(bs.contentDir, "posts")
 
 	err := filepath.WalkDir(blogDir, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {

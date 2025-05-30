@@ -77,3 +77,4 @@ You should likely not use AI generated code in these areas **at all** if you're 
 ## Closing Thoughts
 
 While I find deep learning fascinating, and there are many capable models available that can help people complete certain tasks, I think that new students and graduates alike must reconsider how they approach AI text generation. Using an AI model to shortcut your own learning process doesn't benefit you, and no tool is worth using if it means sacrificing your own autonomy and diminishing industry-critical skills.
+
