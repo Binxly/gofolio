@@ -33,7 +33,7 @@ zip -r function.zip bootstrap
 
 # Add static assets to the package
 echo "📁 Adding static assets..."
-zip -r function.zip static/ assets/ content/
+zip -r function.zip static/ assets/ blog/posts/
 
 # Get file size
 FILE_SIZE=$(stat -f%z function.zip 2>/dev/null || stat -c%s function.zip)

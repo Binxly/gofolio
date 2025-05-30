@@ -148,9 +148,9 @@ func (bs *BlogService) GetAllPosts() []Post {
 }
 
 func (bs *BlogService) GetPostBySlug(slug string) (*Post, error) {
-	for _, post := range bs.posts {
-		if post.Slug == slug {
-			return &post, nil
+	for i := range bs.posts {
+		if bs.posts[i].Slug == slug {
+			return &bs.posts[i], nil
 		}
 	}
 	return nil, fmt.Errorf("post with slug '%s' not found", slug)

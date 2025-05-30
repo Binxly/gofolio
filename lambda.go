@@ -16,7 +16,6 @@ func main() {
 	blogService = blog.NewBlogService("blog")
 	if err := blogService.LoadPosts(); err != nil {
 		// TODO: same as main.go
-		// ugly way to do this, i know
 		log.Printf("Error loading blog posts: %v", err)
 	}
 
