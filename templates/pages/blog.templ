@@ -1,0 +1,37 @@
+package pages
+
+import "github.com/binxly/gofolio/blog"
+import "github.com/binxly/gofolio/templates/layouts"
+
+templ DynamicBlogPage(posts []blog.Post) {
+	@layouts.BaseLayout("Blog | Binx Bytes", DynamicBlogContent(posts))
+}
+
+templ DynamicBlogContent(posts []blog.Post) {
+	<div class="max-w-2xl mx-auto px-6 py-16">
+		<h1 class="text-3xl font-medium text-stone-900 dark:text-stone-100 mb-4">Blog - Binx Bytes</h1>
+		<p class="text-lg text-stone-600 dark:text-stone-400 mb-16 leading-relaxed">
+			Thoughts on technology, learning, and building things.
+		</p>
+		<div class="space-y-12">
+			for _, post := range posts {
+				<article>
+					<div class="flex items-center gap-3 mb-3 text-xs text-stone-500 dark:text-stone-500">
+						<time>{ post.Date.Format("January 2, 2006") }</time>
+						<span class="text-stone-400 dark:text-stone-600">•</span>
+						<span>{ post.Category }</span>
+					</div>
+					<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-3">
+						<a href={ templ.URL("/blog/" + post.Slug) } class="hover:text-stone-600 dark:hover:text-stone-300 transition-colors">
+							{ post.Title }
+						</a>
+					</h2>
+					<p class="text-stone-600 dark:text-stone-400 mb-3 leading-relaxed">
+						{ post.Excerpt }
+					</p>
+					<a href={ templ.URL("/blog/" + post.Slug) } class="text-sm text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">Read more →</a>
+				</article>
+			}
+		</div>
+	</div>
+} 

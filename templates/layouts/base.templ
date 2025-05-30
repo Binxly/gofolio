@@ -1,0 +1,116 @@
+package layouts
+
+import "github.com/binxly/gofolio/templates/components"
+
+templ BaseLayout(title string, content templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en" class="scroll-smooth">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ title } | Binx.page - Blogfolio</title>
+			<meta name="description" content="Writing, learning, and tinkering around."/>
+			<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+			<link rel="apple-touch-icon" href="/static/favicon.ico"/>
+			<link rel="stylesheet" href="/static/assets/css/output.css"/>
+			<script src="https://cdn.tailwindcss.com"></script>
+			<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+			<script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						fontFamily: {
+							'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
+							'sans': ['Inter', 'system-ui', 'sans-serif'],
+						},
+						colors: {
+							background: 'hsl(var(--background))',
+							foreground: 'hsl(var(--foreground))',
+							muted: {
+								DEFAULT: 'hsl(var(--muted))',
+								foreground: 'hsl(var(--muted-foreground))',
+							},
+							popover: {
+								DEFAULT: 'hsl(var(--popover))',
+								foreground: 'hsl(var(--popover-foreground))',
+							},
+							card: {
+								DEFAULT: 'hsl(var(--card))',
+								foreground: 'hsl(var(--card-foreground))',
+							},
+							border: 'hsl(var(--border))',
+							input: 'hsl(var(--input))',
+							primary: {
+								DEFAULT: 'hsl(var(--primary))',
+								foreground: 'hsl(var(--primary-foreground))',
+							},
+							secondary: {
+								DEFAULT: 'hsl(var(--secondary))',
+								foreground: 'hsl(var(--secondary-foreground))',
+							},
+							accent: {
+								DEFAULT: 'hsl(var(--accent))',
+								foreground: 'hsl(var(--accent-foreground))',
+							},
+							destructive: {
+								DEFAULT: 'hsl(var(--destructive))',
+								foreground: 'hsl(var(--destructive-foreground))',
+							},
+							ring: 'hsl(var(--ring))',
+							'stone': {
+								50: '#fafaf9',
+								100: '#f5f5f4',
+								200: '#e7e5e4',
+								300: '#d6d3d1',
+								400: '#a8a29e',
+								500: '#78716c',
+								600: '#57534e',
+								700: '#44403c',
+								800: '#292524',
+								900: '#1c1917',
+								950: '#0c0a09',
+							}
+						},
+						borderRadius: {
+							lg: 'var(--radius)',
+							md: 'calc(var(--radius) - 2px)',
+							sm: 'calc(var(--radius) - 4px)',
+						},
+					}
+				}
+			}
+		</script>
+			<style>
+			@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+			body { font-family: 'Inter', sans-serif; }
+			
+			html { color-scheme: dark; }
+			
+			::-webkit-scrollbar {
+				width: 6px;
+			}
+			::-webkit-scrollbar-track {
+				background: #1c1917;
+			}
+			::-webkit-scrollbar-thumb {
+				background: #44403c;
+				border-radius: 3px;
+			}
+			::-webkit-scrollbar-thumb:hover {
+				background: #57534e;
+			}
+		</style>
+			<script>
+			document.documentElement.classList.add('dark');
+		</script>
+		</head>
+		<body class="bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors duration-200">
+			@components.Navigation()
+			<main>
+				@content
+			</main>
+			@components.Footer()
+		</body>
+	</html>
+} 
