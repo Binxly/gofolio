@@ -1,0 +1,62 @@
+package pages
+
+import "github.com/binxly/gofolio/blog"
+
+templ HomePage(recentPosts []blog.Post) {
+	<div class="max-w-2xl mx-auto px-6 py-16">
+		<section class="mb-20">
+			<h1 class="text-3xl font-medium text-stone-900 dark:text-stone-100 mb-4">
+				Hi, I'm Zac
+			</h1>
+			<p class="text-lg text-stone-600 dark:text-stone-400 mb-6 leading-relaxed">
+				I am an indie full-stack developer who is passionate about technology and open-source software.
+			</p>
+			<p class="text-stone-600 dark:text-stone-400 leading-relaxed">
+				While my focus is currently software development, I am interested in learning more about novel deep learning architectures and applications, writing, and linux.
+			</p>
+		</section>
+		<section class="mb-20">
+			<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-8">Currently working on</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div class="group">
+					<h3 class="font-medium text-stone-900 dark:text-stone-100 mb-1"><a href="https://github.com/Binxly/gofolio" class="hover:text-stone-600 dark:hover:text-stone-300 transition-colors">This Website</a></h3>
+					<p class="text-sm text-stone-600 dark:text-stone-400 mb-2">In the process of changing my stack from Next.js to Go with Templ, deployed on AWS.</p>
+					<div class="text-sm text-stone-500 dark:text-stone-500">
+						Go • Templ
+					</div>
+				</div>
+				<div class="group">
+					<h3 class="font-medium text-stone-900 dark:text-stone-100 mb-1"><a href="https://github.com/Binxly/monkey-interpreter" class="hover:text-stone-600 dark:hover:text-stone-300 transition-colors">Monkey Interpreter</a></h3>
+					<p class="text-sm text-stone-600 dark:text-stone-400 mb-2">Building an interpreter in Go. Learning about ASTs and programming language design.</p>
+					<div class="text-sm text-stone-500 dark:text-stone-500">
+						Go • Interpreters
+					</div>
+				</div>
+				<div class="group">
+					<h3 class="font-medium text-stone-900 dark:text-stone-100 mb-1"><a href="https://github.com/Binxly/atomizer" class="hover:text-stone-600 dark:hover:text-stone-300 transition-colors">Obsidian Plugin: Atomizer</a></h3>
+					<p class="text-sm text-stone-600 dark:text-stone-400 mb-2">Knowledge management utility. Turn one note into many atomic ideas.</p>
+					<div class="text-sm text-stone-500 dark:text-stone-500">
+						TypeScript • Plugin
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<h2 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-8">Recent posts</h2>
+			<div class="space-y-8">
+				for _, post := range recentPosts {
+					<article>
+						<div class="flex items-center gap-3 mb-2 text-xs text-stone-500 dark:text-stone-500">
+							<time>{ post.Date.Format("January 2, 2006") }</time>
+							<span class="text-stone-400 dark:text-stone-600">•</span>
+							<span>{ post.Category }</span>
+						</div>
+						<h3 class="font-medium text-stone-900 dark:text-stone-100 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">
+							<a href={ templ.URL("/blog/" + post.Slug) }>{ post.Title }</a>
+						</h3>
+					</article>
+				}
+			</div>
+		</section>
+	</div>
+} 

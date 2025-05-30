@@ -79,7 +79,7 @@ func (bs *BlogService) parsePost(filePath string) (*Post, error) {
 	}
 
 	md := goldmark.New(
-		goldmark.WithExtensions(meta.Meta),
+		goldmark.WithExtensions(meta.Meta), // don't like this - needs load content to display previews on feed!
 		goldmark.WithParserOptions(
 			parser.WithAutoHeadingID(),
 		),
